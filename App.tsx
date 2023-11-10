@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet ,View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 
 const InventoryCalculator: React.FC = () => {
   const [month, setMonth] = useState<string>('');
@@ -33,40 +33,43 @@ const InventoryCalculator: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Month:</Text>
-      <TextInput value={month} onChangeText={setMonth} />
+      <Text style={styles.label}>Month:</Text>
+      <TextInput style={styles.input} value={month} onChangeText={setMonth} />
 
-      <Text>Beginning Inventory:</Text>
+      <Text style={styles.label}>Beginning Inventory:</Text>
       <TextInput
+        style={styles.input}
         keyboardType="numeric"
         value={beginningInventory.toString()}
         onChangeText={(text) => setBeginningInventory(parseFloat(text))}
       />
 
-      <Text>Ending Inventory:</Text>
+      <Text style={styles.label}>Ending Inventory:</Text>
       <TextInput
+        style={styles.input}
         keyboardType="numeric"
         value={endingInventory.toString()}
         onChangeText={(text) => setEndingInventory(parseFloat(text))}
       />
 
-      <Text>Cost of Goods Sold:</Text>
+      <Text style={styles.label}>Cost of Goods Sold:</Text>
       <TextInput
+        style={styles.input}
         keyboardType="numeric"
         value={costOfGoodsSold.toString()}
         onChangeText={(text) => setCostOfGoodsSold(parseFloat(text))}
       />
 
-      <Button title="Calculate" onPress={calculate} />
-      <Button title="Clear" onPress={clear} />
+      <View style={styles.buttonContainer}>
+        <Button title="Calculate" onPress={calculate} />
+        <Button title="Clear" onPress={clear} />
+      </View>
 
-      <Text>Average Inventory: {averageInventory !== null ? `$${averageInventory.toFixed(2)}` : ''}</Text>
-      <Text>Turnover: {turnover !== null ? turnover.toFixed(1) : ''}</Text>
+      <Text style={styles.result}>Average Inventory: {averageInventory !== null ? `$${averageInventory.toFixed(2)}` : ''}</Text>
+      <Text style={styles.result}>Turnover: {turnover !== null ? turnover.toFixed(1) : ''}</Text>
     </View>
   );
 };
-
-export default InventoryCalculator;
 
 const styles = StyleSheet.create({
   container: {
@@ -74,5 +77,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
+  },
+  label: {
+    marginTop: 10,
+    fontSize: 16,
+  },
+  input: {
+    height: 40,
+    width: '100%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 10,
+    marginTop: 5,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  },
+  result: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default InventoryCalculator;
